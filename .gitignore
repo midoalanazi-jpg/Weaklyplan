@@ -1,0 +1,15 @@
+# build output
+.next
+out
+
+# dependencies
+node_modules
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# system files
+.DS_Store
+Thumbs.db
