@@ -3,6 +3,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import teacherSchedules from "./teacher_schedules.json";
+// السماح بالوصول إلى teacherSchedules باستخدام أسماء المعلمين كسلاسل نصية
+const teacherSchedulesTyped = teacherSchedules as Record<string, any>;
+
 
 // 🏫 واجهة المعلم - مدرسة سمرة بن عمرو الابتدائية
 // تصميم فخم وعصري بأسلوب Notion / Google Classroom
@@ -127,10 +130,8 @@ export default function App() {
   useEffect(() => saveToLS(store), [store]);
 
   // ✅ إصلاح TypeScript indexing
-  const schedule = useMemo(
-    () => (teacherSchedules as Record<string, any>)[teacher],
-    [teacher]
-  );
+  const schedule = useMemo(() => teacherSchedulesTyped[teacher], [teacher]);
+
 
   const toggleSelect = (day: Day, period: number, classId: string) => {
     const isEmpty =
