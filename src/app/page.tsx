@@ -35,7 +35,8 @@ export default function App() {
   useEffect(() => setStore(loadFromLS()), []);
   useEffect(() => saveToLS(store), [store]);
 
-  const schedule = useMemo(() => teacherSchedulesTyped[teacher], [teacher]);
+  const schedule = useMemo(() => teacherSchedulesTyped?.[teacher] ?? {}, [teacher]);
+
 
   const toggleSelect = (day: Day, period: number, classId: string) => {
     if (!classId || classId === "—" || classId === "" || classId === null) return;
@@ -125,7 +126,8 @@ export default function App() {
                 <tr key={d} className={di % 2 === 0 ? "bg-sky-50" : "bg-white"}>
                   <td className="font-medium text-gray-800">{d}</td>
                   {PERIODS.map((p) => {
-                    const classId = schedule[d][p];
+                    const classId = schedule?.[d]?.[p] ?? "—";
+
                     const isEmpty = !classId || classId === "—" || classId === "" || classId === null;
                     const selectedCell = selected.some(
                       (x) => x.day === d && x.period === p && x.classId === classId
